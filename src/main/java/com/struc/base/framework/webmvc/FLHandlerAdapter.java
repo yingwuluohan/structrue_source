@@ -9,14 +9,16 @@ import java.util.Map;
 public class FLHandlerAdapter {
     private FLHandlerMapping handlerMapping;
     //记录本Method所有形式参数的位置,为了以后实例参数数组使用
-    private Map<String, Integer> methodParasMap = new HashMap<>();
+//    private Map<String, Integer> methodParasMap = new HashMap<>();
+    private Map<Object, Integer> methodParasMap = new HashMap<>();
 
-    public FLHandlerAdapter(FLHandlerMapping handlerMapping, Map<String, Integer> methodParasMap) {
+//    public FLHandlerAdapter(FLHandlerMapping handlerMapping, Map<String, Integer> methodParasMap) {
+    public FLHandlerAdapter(FLHandlerMapping handlerMapping, Map<Object, Integer> methodParasMap) {
         this.handlerMapping = handlerMapping;
         this.methodParasMap = methodParasMap;
     }
 
-    public Map<String, Integer> getMethodParasMap() {
+    public Map<Object, Integer> getMethodParasMap() {
         return methodParasMap;
     }
 
@@ -43,8 +45,8 @@ public class FLHandlerAdapter {
 
         //2. 根据形参列表,获得实参列表
 
-        for (Map.Entry<String, Integer> mapP : this.methodParasMap.entrySet()) {
-            String paraName = mapP.getKey();
+        for (Map.Entry<Object, Integer> mapP : this.methodParasMap.entrySet()) {
+            Object paraName = mapP.getKey();
             if (requsetParametes.containsKey(paraName)) {
                 int index=mapP.getValue();
                 String requestValues=Arrays.toString(requsetParametes.get(paraName)).replace("\\[|\\]", "");

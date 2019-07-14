@@ -109,7 +109,7 @@ public class FLDispatcherServlet extends HttpServlet {
         System.out.println( "FLWebApplicationContext:"+context.getClass() );
         for (FLHandlerMapping handlerMapping : this.handlerMappings) {
             Method method = handlerMapping.getMethod();
-            Map<String, Integer> methodParamMapping = new HashMap<>();
+            Map<Object, Integer> methodParamMapping = new HashMap<>();
 
             Annotation[][] paras = method.getParameterAnnotations();
 
@@ -120,20 +120,19 @@ public class FLDispatcherServlet extends HttpServlet {
                         String paraName = ((FLRequestParam) a).value().trim();
                         methodParamMapping.put(paraName, i);
                         break;
-                    }
-                }
-            }
-
-            for( int i = 0 ; i < paras.length;i++ ){
-                for ( Annotation a : paras[i]){
-                    if( a instanceof ModelAttribute){
+                    }else if( a instanceof ModelAttribute){
                         String paraName = ((ModelAttribute) a).value().trim();
+                        Class<?>[]  param = method.getParameterTypes();
+                        System.out.println( "[param]" + param.getClass() );
 
-                        System.out.println( paraName );
+                        methodParamMapping.put(param, i);
+                        System.out.println( "[ModelAttribute]:" + paraName );
                         break;
                     }
                 }
             }
+
+
 
 
 
@@ -147,6 +146,7 @@ public class FLDispatcherServlet extends HttpServlet {
                 }
             }
             System.out.println( "初始化request请求的参数key：" + handlerMapping );
+
 
             this.handlerAdapterMap.put(handlerMapping, new FLHandlerAdapter(handlerMapping, methodParamMapping));
             System.out.println("initHandlerAdapters: " + methodParamMapping + " , " + method);
