@@ -21,6 +21,8 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -123,9 +125,13 @@ public class FLDispatcherServlet extends HttpServlet {
                     }else if( a instanceof ModelAttribute){
                         String paraName = ((ModelAttribute) a).value().trim();
                         Class<?>[]  param = method.getParameterTypes();
+                        Parameter[] parameters = method.getParameters();
                         System.out.println( "[param]" + param.getClass() );
 
+//                        method.getAnnotation( ModelAttribute.class ).value()[ 0 ];
+
                         methodParamMapping.put(param, i);
+
                         System.out.println( "[ModelAttribute]:" + paraName );
                         break;
                     }
@@ -133,7 +139,7 @@ public class FLDispatcherServlet extends HttpServlet {
             }
 
 
-
+//            Proxy.newProxyInstance( mapperInterface.getClassLoader() , new Class[]{ mapperInterface} , mapperProxy )
 
 
             //再处理request, response参数
