@@ -12,11 +12,14 @@ import com.struc.base.userapi.services.IModifyService;
 @FLService
 public class ModifyService implements IModifyService {
 
+	private String name;
+
+
 	/**
 	 * 增加
 	 */
 	public String add(String name,String addr) {
-		System.out.println( "" + name );
+		System.out.println( "ModifyService:" + name );
 		return "modifyService add,name=" + name + ",addr=" + addr;
 	}
 

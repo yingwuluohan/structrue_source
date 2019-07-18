@@ -39,7 +39,7 @@ public class FLHandlerAdapter {
 
         Class<?>[] methodParameterTypes = handlerMapping.getMethod().getParameterTypes();
 
-        Map<String, String[]> requsetParametes = request.getParameterMap();
+        Map<String, Object[]> requsetParametes = request.getParameterMap();
 
         Object[] realParas = new Object[methodParameterTypes.length];
 

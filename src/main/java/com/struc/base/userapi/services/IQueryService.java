@@ -6,7 +6,9 @@ package com.struc.base.userapi.services;
  *
  */
 public interface IQueryService {
-	
+
+
+	void updateInfo( String name );
 	/**
 	 * 查询
 	 */

@@ -1,7 +1,9 @@
 package com.struc.base.userapi.services.impl;
 
 
+import com.struc.base.framework.annotation.FLAutowired;
 import com.struc.base.framework.annotation.FLService;
+import com.struc.base.userapi.services.IModifyService;
 import com.struc.base.userapi.services.IQueryService;
 
 import java.text.SimpleDateFormat;
@@ -14,6 +16,14 @@ import java.util.Date;
  */
 @FLService
 public class QueryService implements IQueryService {
+
+	@FLAutowired
+	IModifyService modifyService;
+
+	public void updateInfo( String name ){
+		String dd = modifyService.add( name , "test_address" );
+		System.out.println( "result:" +dd );
+	}
 
 	/**
 	 * 查询

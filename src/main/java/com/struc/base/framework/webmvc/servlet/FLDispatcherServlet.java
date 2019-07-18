@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.Proxy;
@@ -128,9 +129,16 @@ public class FLDispatcherServlet extends HttpServlet {
                         Parameter[] parameters = method.getParameters();
                         System.out.println( "[param]" + param.getClass() );
 
+                        for( Class classa : param ){
+                            AnnotatedType annotatedType = classa.getAnnotatedSuperclass();
+                            if( null != annotatedType ){
+                                System.out.println( "方法参数的注解类型：" + classa );
+                                methodParamMapping.put(classa, i);
+                            }
+                        }
 //                        method.getAnnotation( ModelAttribute.class ).value()[ 0 ];
 
-                        methodParamMapping.put(param, i);
+
 
                         System.out.println( "[ModelAttribute]:" + paraName );
                         break;

@@ -28,6 +28,7 @@ public class HomeController {
     @FLRequestMapping("/q")
     public FLModelAndView query(HttpServletRequest request, HttpServletResponse response,
                                 @FLRequestParam("name_test") String name){
+        queryService.updateInfo( name );
         String result = queryService.query(name);
 //		System.out.println(result);
         Map mapBody = new HashMap();
